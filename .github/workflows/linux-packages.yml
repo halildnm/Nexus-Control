@@ -58,7 +58,7 @@ jobs:
         run: |
           mkdir -p "${RUNNER_TEMP}/rpmbuild/SOURCES" "${RUNNER_TEMP}/rpmbuild/SPECS"
           mkdir "nexus-control-0.3.4"
-          cp -a app integrations packaging/shared LICENSE README.md pyproject.toml "nexus-control-0.3.4/"
+          cp -a app integrations packaging LICENSE README.md pyproject.toml "nexus-control-0.3.4/"
           tar -czf "${RUNNER_TEMP}/rpmbuild/SOURCES/nexus-control-0.3.4.tar.gz" nexus-control-0.3.4
 
       - name: Build RPM
