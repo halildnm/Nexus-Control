@@ -19,7 +19,7 @@ jobs:
       - name: Install Arch build dependencies
         run: |
           pacman -Syu --noconfirm
-          pacman -S --noconfirm --needed base-devel git
+          pacman -S --noconfirm --needed base-devel git sudo
 
       - name: Check out source
         uses: actions/checkout@v4
@@ -27,11 +27,13 @@ jobs:
       - name: Create unprivileged build user
         run: |
           useradd --create-home builder
+          printf 'builder ALL=(ALL) NOPASSWD: /usr/bin/pacman\n' > /etc/sudoers.d/builder
+          chmod 440 /etc/sudoers.d/builder
           chown -R builder:builder "$GITHUB_WORKSPACE"
 
       - name: Build package
         run: |
-          su builder -c "cd '$GITHUB_WORKSPACE/packaging/arch' && makepkg --nodeps --noconfirm"
+          su builder -c "cd '$GITHUB_WORKSPACE/packaging/arch' && makepkg --syncdeps --noconfirm"
 
       - name: Inspect package
         run: |
