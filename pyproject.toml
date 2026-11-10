@@ -28,3 +28,6 @@ exclude = ["integrations*"]
 
 [tool.setuptools.package-data]
 app = ["static/*"]
+
+[tool.setuptools.package-data]
+app = ["static/*"]
