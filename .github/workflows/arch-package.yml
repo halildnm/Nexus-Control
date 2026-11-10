@@ -19,7 +19,7 @@ jobs:
       - name: Install Arch build dependencies
         run: |
           pacman -Syu --noconfirm
-          pacman -S --noconfirm --needed base-devel git python-fastapi python-uvicorn python-psutil pyside6
+          pacman -S --noconfirm --needed base-devel git
 
       - name: Check out source
         uses: actions/checkout@v4
