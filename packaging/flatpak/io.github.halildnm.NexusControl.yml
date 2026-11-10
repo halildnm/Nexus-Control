@@ -1,0 +1,35 @@
+{
+  "app-id": "io.github.halildnm.NexusControl",
+  "runtime": "org.kde.Platform",
+  "runtime-version": "6.8",
+  "sdk": "org.kde.Sdk",
+  "command": "nexus-control-desktop",
+  "finish-args": [
+    "--share=network",
+    "--socket=wayland",
+    "--socket=fallback-x11",
+    "--device=dri",
+    "--filesystem=xdg-config/nexus-control:create",
+    "--filesystem=xdg-state/nexus-control:create"
+  ],
+  "modules": [
+    {
+      "name": "nexus-control",
+      "buildsystem": "simple",
+      "build-commands": [
+        "install -D app/desktop.py /app/lib/nexus-control/app/desktop.py",
+        "install -D app/main.py /app/lib/nexus-control/app/main.py",
+        "install -D app/__init__.py /app/lib/nexus-control/app/__init__.py",
+        "cp -a app/static /app/lib/nexus-control/app/",
+        "install -D packaging/shared/nexus-control.desktop /app/share/applications/io.github.halildnm.NexusControl.desktop",
+        "install -D packaging/flatpak/nexus-control-desktop /app/bin/nexus-control-desktop"
+      ],
+      "sources": [
+        {
+          "type": "dir",
+          "path": "../.."
+        }
+      ]
+    }
+  ]
+}

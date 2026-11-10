@@ -1,0 +1,41 @@
+# Maintainer: halildnm
+pkgname=nexus-control
+pkgver=0.3.4
+pkgrel=1
+pkgdesc='Linux desktop companion and iPad control dashboard'
+arch=('x86_64')
+url='https://github.com/halildnm/Nexus-Control'
+license=('GPL-3.0-only')
+depends=('python' 'python-fastapi' 'python-uvicorn' 'python-psutil' 'pyside6')
+optdepends=('niri: Niri workspace controls'
+            'playerctl: media playback controls'
+            'wireplumber: PipeWire volume controls'
+            'pulseaudio: PulseAudio volume controls'
+            'dms: Dux Shell widget integration')
+source=("https://github.com/halildnm/Nexus-Control/releases/download/v${pkgver}/nexus-control-${pkgver}.tar.gz"
+        "nexus-control.desktop")
+sha256sums=('df64e22101e400b59ab3ca7addb125896345b163a6d731442cea3eeccee213e8'
+            '4f53e6f974dfb782bc920b50b9da524cfb2b6f3b51377a0e147a86faba5916ab')
+
+package() {
+  install -d "${pkgdir}/usr/lib/nexus-control"
+  cp -a app "${pkgdir}/usr/lib/nexus-control/"
+  install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  install -Dm644 README.md "${pkgdir}/usr/share/doc/${pkgname}/README.md"
+  install -Dm644 nexus-control.desktop "${pkgdir}/usr/share/applications/nexus-control.desktop"
+  install -d "${pkgdir}/usr/share/nexus-control/integrations"
+  cp -a integrations/dux-nexus "${pkgdir}/usr/share/nexus-control/integrations/"
+  install -d "${pkgdir}/usr/bin"
+  cat > "${pkgdir}/usr/bin/nexus-control-desktop" <<'EOF'
+#!/bin/sh
+export PYTHONPATH="/usr/lib/nexus-control${PYTHONPATH:+:$PYTHONPATH}"
+exec /usr/bin/python -m app.desktop "$@"
+EOF
+  chmod 755 "${pkgdir}/usr/bin/nexus-control-desktop"
+  cat > "${pkgdir}/usr/bin/nexus-control" <<'EOF'
+#!/bin/sh
+export PYTHONPATH="/usr/lib/nexus-control${PYTHONPATH:+:$PYTHONPATH}"
+exec /usr/bin/python -c 'from app.main import run; run()' "$@"
+EOF
+  chmod 755 "${pkgdir}/usr/bin/nexus-control"
+}

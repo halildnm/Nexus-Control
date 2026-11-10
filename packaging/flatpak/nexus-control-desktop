@@ -1,0 +1,3 @@
+#!/bin/sh
+export PYTHONPATH=/app/lib/nexus-control
+exec python3 -m app.desktop "$@"

@@ -1,0 +1,5 @@
+nexus-control (0.3.4-1) unstable; urgency=medium
+
+  * Initial Debian package.
+
+ -- halildnm <halildnm@users.noreply.github.com>  Tue, 10 Nov 2026 12:00:00 +0000

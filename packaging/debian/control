@@ -1,0 +1,16 @@
+Source: nexus-control
+Section: utils
+Priority: optional
+Maintainer: halildnm <halildnm@users.noreply.github.com>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.7.0
+Homepage: https://github.com/halildnm/Nexus-Control
+Rules-Requires-Root: no
+
+Package: nexus-control
+Architecture: amd64
+Depends: ${misc:Depends}, python3, python3-fastapi, python3-uvicorn, python3-psutil, python3-pyside6
+Recommends: niri, playerctl, wireplumber
+Description: Linux desktop companion and iPad control dashboard
+ Nexus Control turns an iPad into a remote control panel for a Linux
+ computer, with system monitoring and desktop controls.

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Nexus Control
+Comment=Control your Linux desktop from an iPad
+Exec=nexus-control-desktop
+Icon=computer
+Terminal=false
+Categories=Utility;Network;
+StartupNotify=true

@@ -1,0 +1,8 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: nexus-control
+Source: https://github.com/halildnm/Nexus-Control
+
+Files: *
+Copyright: 2026 halildnm
+License: GPL-3.0-only
+ The full text of GPL-3.0 is provided in the upstream LICENSE file.
