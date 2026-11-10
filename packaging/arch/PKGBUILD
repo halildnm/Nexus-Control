@@ -1,21 +1,24 @@
 # Maintainer: halildnm
 pkgname=nexus-control
 pkgver=0.3.4
-pkgrel=1
+pkgrel=2
 pkgdesc='Linux desktop companion and iPad control dashboard'
 arch=('x86_64')
 url='https://github.com/halildnm/Nexus-Control'
 license=('GPL-3.0-only')
 depends=('python' 'python-fastapi' 'python-uvicorn' 'python-psutil' 'pyside6')
+makedepends=('git')
 optdepends=('niri: Niri workspace controls'
             'playerctl: media playback controls'
             'wireplumber: PipeWire volume controls'
             'pulseaudio: PulseAudio volume controls'
             'dms: Dux Shell widget integration')
-source=("https://github.com/halildnm/Nexus-Control/releases/download/v${pkgver}/nexus-control-${pkgver}.tar.gz")
-sha256sums=('df64e22101e400b59ab3ca7addb125896345b163a6d731442cea3eeccee213e8')
+source=("nexus-control::git+https://github.com/halildnm/Nexus-Control.git#tag=v${pkgver}")
+sha256sums=('SKIP')
 
 package() {
+  cd "${srcdir}/nexus-control"
+
   install -d "${pkgdir}/usr/lib/nexus-control"
   cp -a app "${pkgdir}/usr/lib/nexus-control/"
   install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
