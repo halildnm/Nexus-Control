@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#171923">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>NEXUS Control</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="rail" aria-label="Ana gezinme">
+      <a class="brand-mark" href="#top" aria-label="NEXUS ana sayfa">N</a>
+      <a class="rail-link selected" href="#overview" aria-label="Genel bakış" title="Genel bakış">◫</a>
+      <a class="rail-link" href="#workspaces-panel" aria-label="Çalışma alanları" title="Çalışma alanları">▦</a>
+      <a class="rail-link" href="#media-panel" aria-label="Medya" title="Medya">♫</a>
+      <a class="rail-link" href="#device-panel" aria-label="Cihaz" title="Cihaz">⌘</a>
+      <div class="rail-spacer"></div>
+      <span class="rail-version">0.2</span>
+    </aside>
+
+    <div class="page" id="top">
+      <header class="topbar">
+        <div class="heading-block">
+          <div class="eyebrow">DESKTOP COMPANION</div>
+          <h1>NEXUS <span>Control</span></h1>
+          <p id="host">Arch Linux · Niri</p>
+        </div>
+        <div class="top-actions">
+          <div class="connection" role="status"><i id="dot"></i><span id="connection">Bağlanıyor</span></div>
+          <div class="avatar">NX</div>
+        </div>
+      </header>
+
+      <main id="overview">
+        <section class="welcome panel">
+          <div>
+            <div class="eyebrow">CONTROL CENTER <span class="live-mark">● LIVE</span></div>
+            <h2>Bilgisayarın,<br class="mobile-break"> kontrolünde.</h2>
+            <p>Durumu izle, çalışma alanlarını değiştir ve medya deneyimini iPad'inden yönet.</p>
+          </div>
+          <div class="welcome-orbit" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="orbit-core">N</div><span class="orbit-dot"></span></div>
+        </section>
+
+        <section class="stats-grid" aria-label="Sistem durumu">
+          <article class="stat-card panel">
+            <div class="card-top"><span class="stat-icon purple">◈</span><span class="eyebrow">İŞLEMCİ</span><span class="card-menu">●</span></div>
+            <div class="stat-value" id="cpu">—<small>%</small></div>
+            <div class="meter"><i id="cpu-bar"></i></div>
+            <div class="stat-caption">CPU kullanımı</div>
+          </article>
+          <article class="stat-card panel">
+            <div class="card-top"><span class="stat-icon blue">▦</span><span class="eyebrow">BELLEK</span><span class="card-menu">●</span></div>
+            <div class="stat-value" id="ram">—<small> GB</small></div>
+            <div class="meter"><i id="ram-bar"></i></div>
+            <div class="stat-caption" id="ram-detail">RAM kullanımı</div>
+          </article>
+          <article class="stat-card panel">
+            <div class="card-top"><span class="stat-icon mint">▤</span><span class="eyebrow">DEPOLAMA</span><span class="card-menu">●</span></div>
+            <div class="stat-value" id="disk">—<small>%</small></div>
+            <div class="meter"><i id="disk-bar"></i></div>
+            <div class="stat-caption" id="disk-detail">Kök bölüm</div>
+          </article>
+          <article class="stat-card panel">
+            <div class="card-top"><span class="stat-icon amber">♨</span><span class="eyebrow">SICAKLIK</span><span class="card-menu">●</span></div>
+            <div class="stat-value" id="temp">—</div>
+            <div class="meter"><i id="temp-bar"></i></div>
+            <div class="stat-caption">Erişilebilen en yüksek sensör</div>
+          </article>
+        </section>
+
+        <div class="content-grid">
+          <section class="panel workspace-panel" id="workspaces-panel">
+            <div class="section-heading"><div><div class="eyebrow">NIRI COMPOSITOR</div><h2>Çalışma alanları</h2></div><span class="soft-pill" id="workspace-count">—</span></div>
+            <p class="section-copy">Bir alana dokunarak masaüstünü değiştir.</p>
+            <div id="workspaces" class="workspace-grid"><span class="empty-state">Çalışma alanları bekleniyor…</span></div>
+          </section>
+
+          <section class="panel media-panel" id="media-panel">
+            <div class="section-heading"><div><div class="eyebrow">NOW PLAYING</div><h2>Medya</h2></div><span class="soft-pill" id="media-status">Beklemede</span></div>
+            <div class="media-content">
+              <div class="cover-wrap"><div class="cover" id="cover">♫</div><span class="cover-glow"></span></div>
+              <div class="track-info"><strong id="track-title">Şu anda çalan medya yok</strong><span id="track-artist">Playerctl bekleniyor</span><small id="track-album"></small></div>
+            </div>
+            <div class="media-controls">
+              <button class="icon-button" data-action="previous" aria-label="Önceki parça">Ⅱ◀</button>
+              <button class="play-button" data-action="play-pause" aria-label="Oynat veya duraklat">▶</button>
+              <button class="icon-button" data-action="next" aria-label="Sonraki parça">▶Ⅱ</button>
+            </div>
+          </section>
+
+          <section class="panel device-panel" id="device-panel">
+            <div class="section-heading"><div><div class="eyebrow">AUDIO OUTPUT</div><h2>Ses kontrolü</h2></div><span class="soft-pill" id="audio-backend">Bağlanıyor</span></div>
+            <div class="volume-display"><span class="volume-symbol">♫</span><strong id="volume-value">—</strong></div>
+            <div class="volume-row"><span>◖</span><input id="volume" type="range" min="0" max="100" value="50" aria-label="Ses seviyesi"><span>◗</span></div>
+            <button class="secondary-button" id="mute">◉ <span>Sesi aç / kapat</span></button>
+          </section>
+
+          <section class="panel network-panel">
+            <div class="section-heading"><div><div class="eyebrow">NETWORK ACTIVITY</div><h2>Ağ kullanımı</h2></div><span class="soft-pill">Toplam</span></div>
+            <div class="network-grid">
+              <div class="network-item"><span class="network-arrow up">↑</span><div><small>Gönderilen</small><strong id="sent">— MB</strong></div></div>
+              <div class="network-item"><span class="network-arrow down">↓</span><div><small>Alınan</small><strong id="recv">— MB</strong></div></div>
+            </div>
+            <p class="section-copy network-note">Ağ sayaçları sistem açılışından beri biriken toplam değerlerdir.</p>
+          </section>
+        </div>
+      </main>
+      <footer><span>NEXUS CONTROL</span><span>MADE FOR YOUR DESKTOP</span></footer>
+    </div>
+  </div>
+
+  <div id="login" class="login-overlay hidden">
+    <form id="token-form" class="login-card">
+      <div class="login-mark">N</div>
+      <div class="eyebrow">SECURE LOCAL CONNECTION</div>
+      <h2>NEXUS'a bağlan</h2>
+      <p>Bilgisayarında oluşturduğun erişim anahtarını gir.</p>
+      <input id="token-input" type="password" placeholder="Erişim anahtarı" autocomplete="off" required>
+      <button class="connect-button" type="submit">Bağlan <span>→</span></button>
+      <small id="login-error"></small>
+    </form>
+  </div>
+  <script src="/static/app.js"></script>
+</body>
+</html>

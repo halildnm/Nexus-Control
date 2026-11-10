@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Nexus Control
+Comment=Manage the Nexus iPad dashboard
+Exec=nexus-control-desktop
+Icon=computer
+Terminal=false
+Categories=Utility;System;
+StartupNotify=true

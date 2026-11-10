@@ -1,0 +1,20 @@
+{
+  "id": "nexusControl",
+  "name": "Nexus Control",
+  "description": "Nexus iPad dashboard status and quick access for Dux Shell.",
+  "version": "0.3.3",
+  "author": "Nexus Control",
+  "icon": "devices",
+  "type": "widget",
+  "capabilities": [
+    "dankbar-widget"
+  ],
+  "component": "./NexusWidget.qml",
+  "settings": "./Settings.qml",
+  "permissions": [
+    "settings_read",
+    "settings_write",
+    "network"
+  ],
+  "requires_dms": ">=2.0.0"
+}
