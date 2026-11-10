@@ -31,7 +31,7 @@ jobs:
 
       - name: Build package
         run: |
-          su builder -c "cd '$GITHUB_WORKSPACE/packaging/arch' && makepkg --syncdeps --noconfirm"
+          su builder -c "cd '$GITHUB_WORKSPACE/packaging/arch' && makepkg --nodeps --noconfirm"
 
       - name: Inspect package
         run: |
