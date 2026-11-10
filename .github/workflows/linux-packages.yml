@@ -1,0 +1,81 @@
+name: Linux distribution packages
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main, packaging-fixes]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  debian:
+    name: Build Debian package
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Install Debian packaging tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential debhelper dpkg-dev
+
+      - name: Prepare Debian packaging directory
+        run: |
+          cp -a packaging/debian debian
+          chmod +x debian/rules
+
+      - name: Build .deb package
+        run: dpkg-buildpackage --build=binary --no-sign
+
+      - name: Check package metadata
+        run: |
+          dpkg-deb --info ../nexus-control_*.deb
+          dpkg-deb --contents ../nexus-control_*.deb
+
+      - name: Collect Debian package
+        run: |
+          mkdir -p dist
+          cp ../nexus-control_*.deb dist/
+
+      - name: Upload Debian package
+        uses: actions/upload-artifact@v4
+        with:
+          name: nexus-control-debian-amd64
+          path: dist/*.deb
+          if-no-files-found: error
+
+  fedora:
+    name: Build Fedora RPM
+    runs-on: ubuntu-latest
+    container: fedora:latest
+    steps:
+      - name: Install RPM build tools
+        run: dnf install -y rpm-build tar gzip
+
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Prepare source archive
+        run: |
+          mkdir -p "${RUNNER_TEMP}/rpmbuild/SOURCES" "${RUNNER_TEMP}/rpmbuild/SPECS"
+          mkdir "nexus-control-0.3.4"
+          cp -a app integrations packaging LICENSE README.md pyproject.toml "nexus-control-0.3.4/"
+          tar -czf "${RUNNER_TEMP}/rpmbuild/SOURCES/nexus-control-0.3.4.tar.gz" nexus-control-0.3.4
+
+      - name: Build RPM
+        run: |
+          cp packaging/fedora/nexus-control.spec "${RUNNER_TEMP}/rpmbuild/SPECS/nexus-control.spec"
+          rpmbuild -ba "${RUNNER_TEMP}/rpmbuild/SPECS/nexus-control.spec" \
+            --define "_topdir ${RUNNER_TEMP}/rpmbuild" \
+            --define "_sourcedir ${RUNNER_TEMP}/rpmbuild/SOURCES"
+
+      - name: Upload RPM package
+        uses: actions/upload-artifact@v4
+        with:
+          name: nexus-control-fedora-rpm
+          path: ${{ runner.temp }}/rpmbuild/RPMS/**/*.rpm
+          if-no-files-found: error

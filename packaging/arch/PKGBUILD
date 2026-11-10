@@ -12,17 +12,15 @@ optdepends=('niri: Niri workspace controls'
             'wireplumber: PipeWire volume controls'
             'pulseaudio: PulseAudio volume controls'
             'dms: Dux Shell widget integration')
-source=("https://github.com/halildnm/Nexus-Control/releases/download/v${pkgver}/nexus-control-${pkgver}.tar.gz"
-        "nexus-control.desktop")
-sha256sums=('df64e22101e400b59ab3ca7addb125896345b163a6d731442cea3eeccee213e8'
-            '4f53e6f974dfb782bc920b50b9da524cfb2b6f3b51377a0e147a86faba5916ab')
+source=("https://github.com/halildnm/Nexus-Control/releases/download/v${pkgver}/nexus-control-${pkgver}.tar.gz")
+sha256sums=('df64e22101e400b59ab3ca7addb125896345b163a6d731442cea3eeccee213e8')
 
 package() {
   install -d "${pkgdir}/usr/lib/nexus-control"
   cp -a app "${pkgdir}/usr/lib/nexus-control/"
   install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
   install -Dm644 README.md "${pkgdir}/usr/share/doc/${pkgname}/README.md"
-  install -Dm644 nexus-control.desktop "${pkgdir}/usr/share/applications/nexus-control.desktop"
+  install -Dm644 packaging/shared/nexus-control.desktop "${pkgdir}/usr/share/applications/nexus-control.desktop"
   install -d "${pkgdir}/usr/share/nexus-control/integrations"
   cp -a integrations/dux-nexus "${pkgdir}/usr/share/nexus-control/integrations/"
   install -d "${pkgdir}/usr/bin"
