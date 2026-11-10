@@ -1,0 +1,41 @@
+name: Arch Linux package
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main, packaging/arch-build-validation]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-arch:
+    name: Build and inspect Arch package
+    runs-on: ubuntu-latest
+    container: archlinux:latest
+    steps:
+      - name: Install Arch build dependencies
+        run: |
+          pacman -Syu --noconfirm
+          pacman -S --noconfirm --needed base-devel git python-fastapi python-uvicorn python-psutil pyside6
+
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Create unprivileged build user
+        run: |
+          useradd --create-home builder
+          chown -R builder:builder "$GITHUB_WORKSPACE"
+
+      - name: Build package
+        run: |
+          su builder -c "cd '$GITHUB_WORKSPACE/packaging/arch' && makepkg --syncdeps --noconfirm"
+
+      - name: Inspect package
+        run: |
+          package="$(find packaging/arch -maxdepth 1 -name '*.pkg.tar.zst' -print -quit)"
+          test -n "$package"
+          pacman -Qip "$package"
+          tar -tf "$package" | grep -E 'usr/bin/nexus-control(-desktop)?$'
