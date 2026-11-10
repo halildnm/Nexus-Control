@@ -36,11 +36,16 @@ jobs:
           dpkg-deb --info ../nexus-control_*.deb
           dpkg-deb --contents ../nexus-control_*.deb
 
+      - name: Collect Debian package
+        run: |
+          mkdir -p dist
+          cp ../nexus-control_*.deb dist/
+
       - name: Upload Debian package
         uses: actions/upload-artifact@v4
         with:
           name: nexus-control-debian-amd64
-          path: ../nexus-control_*.deb
+          path: dist/*.deb
           if-no-files-found: error
 
   fedora:
