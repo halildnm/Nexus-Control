@@ -12,7 +12,7 @@ if command -v pacman >/dev/null 2>&1; then
     if command -v pkexec >/dev/null 2>&1; then
       pkexec pacman -S --needed --noconfirm pyside6 python-pip playerctl wireplumber
     else
-      zenity --error --text="PySide6 kurulumu için pkexec bulunamadı. python-pyside6 paketini kurup tekrar deneyin." 2>/dev/null || true
+      zenity --error --text="PySide6 kurulumu için pkexec bulunamadı. pyside6 paketini kurup tekrar deneyin." 2>/dev/null || true
       exit 1
     fi
   fi
