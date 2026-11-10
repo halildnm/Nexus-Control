@@ -10,7 +10,8 @@ override_dh_auto_install:
 	cp -a app debian/nexus-control/usr/lib/nexus-control/
 	install -D -m 0755 packaging/debian/nexus-control-desktop debian/nexus-control/usr/bin/nexus-control-desktop
 	install -D -m 0644 packaging/shared/nexus-control.desktop debian/nexus-control/usr/share/applications/nexus-control.desktop
-	install -D -m 0644 LICENSE debian/nexus-control/usr/share/doc/nexus-control/copyright
+	install -D -m 0644 packaging/debian/copyright debian/nexus-control/usr/share/doc/nexus-control/copyright
+	install -D -m 0644 LICENSE debian/nexus-control/usr/share/doc/nexus-control/LICENSE
 	install -D -m 0644 README.md debian/nexus-control/usr/share/doc/nexus-control/README.md
 	install -d debian/nexus-control/usr/share/nexus-control/integrations
 	cp -a integrations/dux-nexus debian/nexus-control/usr/share/nexus-control/integrations/
